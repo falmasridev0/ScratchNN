@@ -15,7 +15,6 @@ class NNModel:
     def predict(self, inputs: np.ndarray):
         current_input = inputs  # LAYER 0
         for i in range(len(self.layers)):
-
-            current_input = self.layers[i].activation(np.dot(current_input, self.layers[i].get_weights()) + self.layers[i].get_bias())
+            current_input = self.layers[i].forward_pass(current_input)
             print(f"Values: {current_input} LAYER #{i+1}")
         return current_input

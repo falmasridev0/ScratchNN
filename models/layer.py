@@ -6,6 +6,7 @@ from activations.activation_functions import relu
 class Layer:
 
     def __init__(self, units, activation=relu):
+        self.is_initialized = False
         self._neurons = None
         self._bias = None
         self._weights = None
@@ -17,6 +18,11 @@ class Layer:
         self._weights = np.random.random_sample((self.n_features, self._units))
         self._bias = np.zeros((self._units,))
         self._neurons = np.array([Neuron(self._weights[:, i], self._bias[i]) for i in range(self._units)])
+        self.is_initialized = True
+        return self.is_initialized
+
+    def forward_pass(self,x):
+        return self.activation(np.dot(x,self._weights) + self._bias)
 
     def get_weights(self):
         return self._weights
